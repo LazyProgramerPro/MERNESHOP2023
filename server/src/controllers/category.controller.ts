@@ -3,6 +3,7 @@ import { Category } from "../models/category.model";
 import { SubCategory } from "../models/sub-category.model";
 
 import slugify from "slugify";
+import { Product } from "../models/product.model";
 
 export const createCategory = async (
   req: express.Request,
@@ -36,7 +37,16 @@ export const getCategory = async (
 
   try {
     const category = await Category.findOne({ slug }).exec();
-    res.json(category);
+
+    const products = await Product.find({ category })
+      .populate("category")
+      // .populate("postedBy", "_id name")
+      .exec();
+
+    res.json({
+      category,
+      products,
+    });
   } catch (error) {
     res.status(400).send(error.message);
   }

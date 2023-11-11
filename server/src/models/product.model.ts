@@ -8,6 +8,7 @@ export interface IProduct extends Document {
   category?: string;
   subCategory?: string;
   quantity?: number;
+  ratings:any[]
 }
 
 export let ProductSchema: Schema = new Schema(
@@ -68,12 +69,12 @@ export let ProductSchema: Schema = new Schema(
       enum: ["Apple", "Samsung", "Microsoft", "Lenovo", "ASUS"],
     },
     isPublished: { type: Boolean, default: false, index: true, select: false },
-    // ratings: [
-    //   {
-    //     star: Number,
-    //     postedBy: { type: Types.ObjectId, ref: "User" },
-    //   },
-    // ],
+    ratings: [
+      {
+        star: Number,
+        postedBy: { type: Types.ObjectId, ref: "User" },
+      },
+    ],
   },
   { timestamps: true }
 );

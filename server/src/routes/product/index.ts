@@ -8,6 +8,8 @@ import {
   updateProduct,
   getAllProduct,
   productsCount,
+  productStar,
+  getProductsRelated
 } from "../../controllers/product.controller";
 import { checkAdmin, checkAuth } from "../../middlewares/auth.middleware";
 
@@ -20,4 +22,10 @@ export default (router: express.Router) => {
   router.delete("/product/:slug", checkAuth, checkAdmin, deleteProduct);
   router.delete("/product/:slug", checkAuth, checkAdmin, deleteProduct);
   router.post("/products", getAllProduct); // sort, order, limit
+
+  //Rating
+  router.delete("/product/star/:productId", checkAuth, productStar); // chỉ cần đăng nhập không cần Admin
+
+  //Related
+  router.get("/product/related/:productId", getProductsRelated);
 };
